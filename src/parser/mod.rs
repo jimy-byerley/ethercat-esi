@@ -215,7 +215,7 @@ pub struct Mailbox {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use serde_xml_rs::from_str;
+    use quick_xml::de::from_str;
     use std::{fs::File, io::prelude::*};
 
     #[test]
