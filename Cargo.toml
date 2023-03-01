@@ -12,7 +12,8 @@ edition = "2018"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
-serde-xml-rs = "0.4"
+quick-xml = {version="0.27.1", features=['serialize']}
+# serde-xml-rs = {version="0.4", path="../serde-xml-rs"}
 
 [badges]
 maintenance = { status = "actively-developed" }

@@ -41,22 +41,22 @@ pub struct Descriptions {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Groups {
-    #[serde(rename = "$value")]
-    items: Option<Vec<Group>>,
+    #[serde(rename = "$value", default)]
+    items: Vec<Group>,
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Devices {
-    #[serde(rename = "$value")]
-    items: Option<Vec<Device>>,
+    #[serde(rename = "$value", default)]
+    items: Vec<Device>,
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Modules {
-    #[serde(rename = "$value")]
-    items: Option<Vec<Module>>,
+    #[serde(rename = "$value", default)]
+    items: Vec<Module>,
 }
 
 #[allow(non_snake_case)]

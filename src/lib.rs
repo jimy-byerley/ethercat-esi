@@ -43,14 +43,15 @@ use std::{
     io::{Error, ErrorKind, Result},
 };
 
-mod parser;
+pub mod parser;
 mod structs;
 
 pub use structs::*;
 
 impl EtherCatInfo {
     pub fn from_xml_str(xml: &str) -> Result<Self> {
-        let raw_info: parser::EtherCATInfo = serde_xml_rs::from_reader(xml.as_bytes())
+//         let raw_info: parser::EtherCATInfo = serde_xml_rs::from_reader(xml.as_bytes())
+	let raw_info: parser::EtherCATInfo = quick_xml::de::from_str(xml)
             .map_err(|e| Error::new(ErrorKind::Other, e.to_string()))?;
         raw_info.try_into()
     }

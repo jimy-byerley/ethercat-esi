@@ -10,9 +10,7 @@ impl TryFrom<EtherCATInfo> for S::EtherCatInfo {
             None => S::Description::default(),
         };
 
-        if let Some(Modules {
-            items: Some(modules),
-        }) = x.Modules
+        if let Some(Modules {items: modules}) = x.Modules
         {
             modules
                 .into_iter()
@@ -95,32 +93,36 @@ impl Group {
 impl TryFrom<Descriptions> for S::Description {
     type Error = Error;
     fn try_from(d: Descriptions) -> Result<Self> {
+		
+//         let mut groups = Vec::<S::Group>::new();
+//         if let Some(dgroups) = d.Groups {
+// 			for group in dgroups.items {
+// 				groups.append(group.try_into()?)
+// 			}
+// 		}
+
         let groups: Vec<_> = d
             .Groups
-            .map(|groups| {
-                groups
-                    .items
-                    .map(|items| items.into_iter().map(S::Group::try_from).collect())
-                    .unwrap_or_else(|| Ok(vec![]))
-            })
-            .unwrap_or_else(|| Ok(vec![]))?;
+            .map(|groups| 
+                groups.items
+                    .into_iter().map(S::Group::try_from).map(Result::unwrap).collect()
+            )
+            .unwrap_or_else(|| vec![]);
 
         let devices: Vec<_> = d
             .Devices
             .items
-            .unwrap_or_else(|| vec![])
             .into_iter()
             .map(S::Device::try_from)
             .collect::<Result<_>>()?;
 
         let modules: Vec<_> = d
             .Modules
-            .map(|dev| {
+            .map(|dev|
                 dev.items
-                    .map(|items| items.into_iter().map(S::Module::try_from).collect())
-                    .unwrap_or_else(|| Ok(vec![]))
-            })
-            .unwrap_or_else(|| Ok(vec![]))?;
+                    .into_iter().map(S::Module::try_from).map(Result::unwrap).collect()
+            )
+            .unwrap_or_else(|| vec![]);
 
         Ok(S::Description {
             groups,
