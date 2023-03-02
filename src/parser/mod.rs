@@ -9,7 +9,7 @@ mod conversions;
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct EtherCATInfo {
-    Version: Option<String>,
+	#[serde(rename="@Version")]  Version: Option<String>,
     InfoReference: Option<String>,
     Vendor: Vendor,
     Descriptions: Option<Descriptions>,
@@ -19,7 +19,7 @@ pub struct EtherCATInfo {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 struct Vendor {
-    FileVersion: Option<u32>,
+    #[serde(rename="@FileVersion")]   FileVersion: Option<u32>,
     Id: String,
     Name: Option<String>,
     Comment: Option<String>,
@@ -41,31 +41,27 @@ pub struct Descriptions {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Groups {
-    #[serde(rename = "$value")]
-    items: Option<Vec<Group>>,
+    #[serde(rename = "$value")]	items: Option<Vec<Group>>,
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Devices {
-    #[serde(rename = "$value")]
-    items: Option<Vec<Device>>,
+    #[serde(rename = "$value")]	items: Option<Vec<Device>>,
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Modules {
-    #[serde(rename = "$value")]
-    items: Option<Vec<Module>>,
+    #[serde(rename = "$value")]	 items: Option<Vec<Module>>,
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Group {
-    SortOrder: Option<i32>,
-    ParentGroup: Option<String>,
-    #[serde(rename = "$value")]
-    items: Vec<GroupProperty>,
+	#[serde(rename="@SortOrder")]	SortOrder: Option<i32>,
+	#[serde(rename="@ParentGroup")]	ParentGroup: Option<String>,
+    #[serde(rename = "$value")]		items: Vec<GroupProperty>,
 }
 
 #[allow(non_snake_case)]
@@ -82,17 +78,15 @@ pub enum GroupProperty {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Device {
-    Physics: Option<String>,
-    #[serde(rename = "$value")]
-    items: Vec<DeviceProperty>,
+	#[serde(rename = "@Physics")]	Physics: Option<String>,
+    #[serde(rename = "$value")]		items: Vec<DeviceProperty>,
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Name {
-    LcId: Option<String>,
-    #[serde(rename = "$value")]
-    value: String,
+	#[serde(rename = "@LcId")]	   LcId: Option<String>,
+    #[serde(rename = "$value")]    value: String,
 }
 
 #[allow(non_snake_case)]
@@ -141,20 +135,19 @@ pub enum DeviceProperty {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct DeviceType {
-    ModulePdoGroup: Option<String>,
-    ProductCode: String,
-    RevisionNo: String,
-    #[serde(rename = "$value")]
-    Description: String,
+    #[serde(rename = "@ModulePdoGroup")]	ModulePdoGroup: Option<String>,
+    #[serde(rename = "@ProductCode")]	ProductCode: String,
+    #[serde(rename = "@RevisionNo")]	RevisionNo: String,
+    #[serde(rename = "$value")]			Description: String,
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Clone, Deserialize, PartialEq)]
 pub struct Sm {
-    Enable: Option<u8>,
-    StartAddress: String,
-    ControlByte: String,
-    DefaultSize: Option<String>,
+    #[serde(rename = "@Enable")]	Enable: Option<u8>,
+    #[serde(rename = "@StartAddress")] 	StartAddress: String,
+    #[serde(rename = "@ControlByte")]	ControlByte: String,
+    #[serde(rename = "@DefaultSize")]	DefaultSize: Option<String>,
 }
 
 #[allow(non_snake_case)]
@@ -173,9 +166,9 @@ pub type TxPdo = Pdo;
 #[allow(non_snake_case)]
 #[derive(Debug, Clone, Deserialize, PartialEq)]
 pub struct Pdo {
-    Sm: usize,
-    Fixed: Option<String>,
-    Mandatory: Option<String>,
+    #[serde(rename = "@Sm")]		Sm: usize,
+    #[serde(rename = "@Fixed")]		Fixed: Option<String>,
+    #[serde(rename = "@Mandatory")]	Mandatory: Option<String>,
     Index: Index,
     Name: Option<String>,
     Entry: Vec<Entry>,
@@ -185,8 +178,7 @@ pub struct Pdo {
 #[derive(Debug, Clone, Deserialize, PartialEq)]
 pub struct Index {
     DependOnSlot: Option<usize>,
-    #[serde(rename = "$value")]
-    value: String,
+    #[serde(rename = "$value")]   value: String,
 }
 
 #[allow(non_snake_case)]

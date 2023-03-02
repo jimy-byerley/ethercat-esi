@@ -11,8 +11,8 @@ repository = "https://github.com/ethercat-rs/ethercat-esi"
 edition = "2018"
 
 [dependencies]
-serde = { version = "1", features = ["derive"] }
-quick-xml = {version="0.27.1", features=['serialize'], path="../quick-xml"}
+serde = { version = "^1.0", features = ["derive"] }
+quick-xml = {version=">=0.27.1", features=['serialize'], path="../quick-xml"}
 
 [badges]
 maintenance = { status = "actively-developed" }
